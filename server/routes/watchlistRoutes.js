@@ -1,5 +1,5 @@
 import express from "express";
-import { getWatchListMovies } from "../controllers/watchListController";
+import { getWatchListMovies } from "../controllers/watchListController.js";
 
 const router = express.Router();
 

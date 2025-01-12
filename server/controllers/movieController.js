@@ -1,4 +1,4 @@
-export const getMovies = async (req: any, res: any) => {
+export const getMovies = async (req, res) => {
   try {
     const movies = {
       title: "The Dark Knight",
@@ -9,7 +9,7 @@ export const getMovies = async (req: any, res: any) => {
   }
 };
 
-export const addMovie = async (req: any, res: any) => {
+export const addMovie = async (req, res) => {
   try {
     const movie = {
       title: "The Dark Knight",
@@ -20,7 +20,7 @@ export const addMovie = async (req: any, res: any) => {
   }
 };
 
-export const getMovieById = async (req: any, res: any) => {
+export const getMovieById = async (req, res) => {
   try {
     const movie = {
       title: "The Dark Knight",
@@ -31,7 +31,7 @@ export const getMovieById = async (req: any, res: any) => {
   }
 };
 
-export const updateMovie = async (req: any, res: any) => {
+export const updateMovie = async (req, res) => {
   try {
     const movie = {
       title: "The Dark Knight",
@@ -42,7 +42,7 @@ export const updateMovie = async (req: any, res: any) => {
   }
 };
 
-export const deleteMovie = async (req: any, res: any) => {
+export const deleteMovie = async (req, res) => {
   try {
     const movie = {
       title: "The Dark Knight",

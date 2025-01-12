@@ -5,7 +5,7 @@ import {
   getMovieById,
   updateMovie,
   deleteMovie,
-} from "../controllers/movieController";
+} from "../controllers/movieController.js"; // Add .js extension
 
 const router = express.Router();
 

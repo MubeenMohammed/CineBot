@@ -1,6 +1,4 @@
-import { Request, Response } from "express";
-
-export const getRecommendations = async (req: Request, res: Response) => {
+export const getRecommendations = async (req, res) => {
   try {
     const recommendations = {
       title: "The Dark Knight",
