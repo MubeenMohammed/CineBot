@@ -3,56 +3,89 @@ import scrapeMovies from "../scrapers/scrapeMovies.js";
 
 export const getMovies = async (req, res) => {
   try {
-    const movies = {
-      title: "The Dark Knight",
-    };
-    res.json(movies);
+    const movies = await Movie.find();
+    res.status(200).json({
+      status: "success",
+      results: movies.length,
+      data: {
+        movies,
+      },
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(404).json({
+      status: "failed",
+      message: error.message,
+    });
   }
 };
 
 export const addMovie = async (req, res) => {
   try {
-    const movie = {
-      title: "The Dark Knight",
-    };
-    res.json(movie);
+    const newMovie = await Movie.create(req.body);
+    res.status(201).json({
+      status: "success",
+      data: {
+        movie: newMovie,
+      },
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(400).json({
+      status: "failed",
+      message: error.message,
+    });
   }
 };
 
 export const getMovieById = async (req, res) => {
   try {
-    const movie = {
-      title: "The Dark Knight",
-    };
-    res.json(movie);
+    const movie = await Movie.findById(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: {
+        movie,
+      },
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(404).json({
+      status: "failed",
+      message: error.message,
+    });
   }
 };
 
 export const updateMovie = async (req, res) => {
   try {
-    const movie = {
-      title: "The Dark Knight",
-    };
-    res.json(movie);
+    const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: "success",
+      data: {
+        movie,
+      },
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(404).json({
+      status: "failed",
+      error: error.message,
+    });
   }
 };
 
 export const deleteMovie = async (req, res) => {
   try {
-    const movie = {
-      title: "The Dark Knight",
-    };
-    res.json(movie);
+    await Movie.findByIdAndDelete(req.params.id);
+
+    res.status(204).json({
+      status: "success",
+      message: "Movie deleted successfully",
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(404).json({
+      status: "failed",
+      message: error.message,
+    });
   }
 };
 
