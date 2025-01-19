@@ -1,9 +1,19 @@
 import Movie from "../models/Movie.js";
 import scrapeMovies from "../scrapers/scrapeMovies.js";
+import APIFeatures from "../utils/apiFeatures.js";
 
 export const getMovies = async (req, res) => {
   try {
-    const movies = await Movie.find();
+    //EXECUTE QUERY
+    const features = new APIFeatures(Movie.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const movies = await features.query;
+
+    //SEND RESPONSE
     res.status(200).json({
       status: "success",
       results: movies.length,

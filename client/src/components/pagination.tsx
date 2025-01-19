@@ -7,33 +7,47 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useEffect, useState } from "react";
+import { getMovies } from "../../util/backendAPICalls";
 
 export function DasboardPagination() {
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getMovies(page);
+      sessionStorage.setItem("movies", JSON.stringify(response.data));
+    }
+    fetchData();
+  }, [page]);
+
+  // Define a range of pages to be displayed, for example:
+  const pages = [1, 2, 3]; // This can be dynamic based on the total pages available
+
   return (
     <Pagination>
       <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" />
+        <PaginationItem className="hover:cursor-pointer">
+          <PaginationPrevious onClick={() => setPage(page - 1)} />
         </PaginationItem>
-        <PaginationItem>
-          <PaginationLink
-            isActive
-            href="#"
+        {pages.map((num) => (
+          <PaginationItem
+            key={num}
+            className="hover:cursor-pointer"
           >
-            1
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">2</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
+            <PaginationLink
+              isActive={num === page}
+              onClick={() => setPage(num)}
+            >
+              {num}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
         <PaginationItem>
           <PaginationEllipsis />
         </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
+        <PaginationItem className="hover:cursor-pointer">
+          <PaginationNext onClick={() => setPage(page + 1)} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

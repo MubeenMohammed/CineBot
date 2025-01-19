@@ -2,7 +2,7 @@ export default function Rating({
   ratingValue,
   ratingCount,
 }: {
-  ratingValue: String;
+  ratingValue: string;
   ratingCount: number;
 }) {
   return (
