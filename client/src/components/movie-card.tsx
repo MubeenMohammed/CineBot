@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "./ui/badge";
+import Rating from "./ui/rating";
 
 export default function MovieCard({
   card,
@@ -49,7 +50,12 @@ export default function MovieCard({
         <CardTitle className="text-center text-xl mb-1">{card.title}</CardTitle>
         <CardDescription className="">{card.description}</CardDescription>
       </CardContent>
-      <CardFooter className="flex flex-wrap"></CardFooter>
+      <CardFooter className="flex flex-wrap">
+        <Rating
+          ratingValue={card.ratingValue.toFixed(1)}
+          ratingCount={card.ratingCount}
+        />
+      </CardFooter>
     </Card>
   );
 }
