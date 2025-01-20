@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { getMovies } from "../../util/backendAPICalls";
 
-export function DasboardPagination() {
+export default function DasboardPagination() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -24,11 +24,15 @@ export function DasboardPagination() {
   // Define a range of pages to be displayed, for example:
   const pages = [1, 2, 3]; // This can be dynamic based on the total pages available
 
+  const pageClicked = (num: number) => {
+    setPage(num);
+  };
+
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem className="hover:cursor-pointer">
-          <PaginationPrevious onClick={() => setPage(page - 1)} />
+          <PaginationPrevious onClick={() => pageClicked(page - 1)} />
         </PaginationItem>
         {pages.map((num) => (
           <PaginationItem
@@ -37,7 +41,7 @@ export function DasboardPagination() {
           >
             <PaginationLink
               isActive={num === page}
-              onClick={() => setPage(num)}
+              onClick={() => pageClicked(num)}
             >
               {num}
             </PaginationLink>
@@ -47,7 +51,7 @@ export function DasboardPagination() {
           <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem className="hover:cursor-pointer">
-          <PaginationNext onClick={() => setPage(page + 1)} />
+          <PaginationNext onClick={() => pageClicked(page + 1)} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
