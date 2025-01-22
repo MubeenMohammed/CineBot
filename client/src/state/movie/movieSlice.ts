@@ -1,6 +1,7 @@
 import Movie from "@/types/movies";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getMovies } from "../../../util/backendAPICalls";
+import { RootState } from "../store";
 
 interface MovieState {
   movies: Movie[];
@@ -54,10 +55,14 @@ const MovieSlice = createSlice({
   },
 });
 
-export const fetchMovies = createAsyncThunk("movie/fetchMovies", async () => {
-  const response = await getMovies();
-  return response;
-});
+export const fetchMovies = createAsyncThunk(
+  "movie/fetchMovies",
+  async (_, { getState }) => {
+    const state = getState() as RootState;
+    const page = state.page.page; // Correctly accessing state
+    return await getMovies(page);
+  }
+);
 
 export const { addMovie } = MovieSlice.actions;
 

@@ -7,22 +7,21 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { RootState, AppDispatch } from "@/state/store";
+import { useSelector, useDispatch } from "react-redux";
+import { setPage, nextPage, previousPage } from "@/state/page/pageSlice";
 
 export default function DasboardPagination() {
-  const [page, setPage] = useState(1);
+  const page = useSelector((state: RootState) => state.page.page);
+  const dispatch: AppDispatch = useDispatch();
 
-  // Define a range of pages to be displayed, for example:
-  const pages = [1, 2, 3]; // This can be dynamic based on the total pages available
-
-  const pageClicked = (num: number) => {
-    setPage(num);
-  };
+  const pages = [1, 2, 3];
 
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem className="hover:cursor-pointer">
-          <PaginationPrevious onClick={() => pageClicked(page - 1)} />
+          <PaginationPrevious onClick={() => dispatch(previousPage())} />
         </PaginationItem>
         {pages.map((num) => (
           <PaginationItem
@@ -31,7 +30,7 @@ export default function DasboardPagination() {
           >
             <PaginationLink
               isActive={num === page}
-              onClick={() => pageClicked(num)}
+              onClick={() => dispatch(setPage(num))}
             >
               {num}
             </PaginationLink>
@@ -41,7 +40,7 @@ export default function DasboardPagination() {
           <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem className="hover:cursor-pointer">
-          <PaginationNext onClick={() => pageClicked(page + 1)} />
+          <PaginationNext onClick={() => dispatch(nextPage())} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PageState {
   page: number;
@@ -12,12 +12,18 @@ const PageSlice = createSlice({
   name: "page",
   initialState,
   reducers: {
-    setPage(state, action) {
+    setPage(state, action: PayloadAction<number>) {
       state.page = action.payload;
+    },
+    nextPage(state) {
+      state.page += 1;
+    },
+    previousPage(state) {
+      state.page -= 1;
     },
   },
 });
 
-export const { setPage } = PageSlice.actions;
+export const { setPage, nextPage, previousPage } = PageSlice.actions;
 
 export default PageSlice.reducer;
