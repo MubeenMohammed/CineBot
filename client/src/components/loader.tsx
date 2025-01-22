@@ -1,23 +1,15 @@
-import { CSSProperties } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
-
-const override: CSSProperties = {
-  display: "block",
-  margin: "0 auto",
-  borderColor: "red",
-};
+import { tailChase } from "ldrs";
 
 export default function Loader() {
+  tailChase.register();
+
   return (
     <div className="flex justify-center items-center h-screen">
-      <ClipLoader
-        color={"#ffffff"}
-        loading={true}
-        cssOverride={override}
-        size={100}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+      <l-tail-chase
+        size="40"
+        speed="1.75"
+        color="black"
+      ></l-tail-chase>
     </div>
   );
 }
