@@ -23,10 +23,11 @@ import Loader from "@/components/loader";
 export default function Page() {
   const isLoading = useSelector((state: RootState) => state.movie.loading);
   const dispatch: AppDispatch = useDispatch();
+  const page: number = useSelector((state: RootState) => state.page.page);
 
   useEffect(() => {
     dispatch(fetchMovies());
-  }, [dispatch]);
+  }, [dispatch, page]);
 
   return (
     <SidebarProvider>
@@ -41,15 +42,25 @@ export default function Page() {
             />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
+                {isLoading ? (
+                  <>
+                    <BreadcrumbItem className="hidden md:block">
+                      <BreadcrumbLink href="#">
+                        Building Your Application
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </>
+                ) : (
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="#">
+                      Application Dashboard
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                )}
               </BreadcrumbList>
             </Breadcrumb>
           </div>

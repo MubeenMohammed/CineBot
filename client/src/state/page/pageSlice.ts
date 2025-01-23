@@ -14,12 +14,15 @@ const PageSlice = createSlice({
   reducers: {
     setPage(state, action: PayloadAction<number>) {
       state.page = action.payload;
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
     nextPage(state) {
       state.page += 1;
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
     previousPage(state) {
       state.page -= 1;
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
   },
 });
