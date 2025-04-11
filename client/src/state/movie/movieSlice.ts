@@ -56,7 +56,7 @@ const MovieSlice = createSlice({
 });
 
 export const fetchMovies = createAsyncThunk(
-  "movie/fetchMovies",
+  "fetchMovies",
   async (_, { getState }) => {
     const state = getState() as RootState;
     const page = state.page.page; // Correctly accessing state
